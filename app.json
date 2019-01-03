@@ -11,6 +11,8 @@
   ],
   "stack": "heroku-18",
   "buildpacks": [
-
+    {
+      "url": "mars/create-react-app"
+    }
   ]
 }
