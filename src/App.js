@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import logo from './logo.svg';
-import './App.css';
 
 class App extends Component {
   state = {
@@ -29,7 +27,7 @@ class App extends Component {
         .then((response) => {
           this.setState({
             loading: false,
-            data: [response.data.data.after],
+            data: [response.data.data.children[0].data.author],
           });
         })
         .catch(() => {
@@ -42,21 +40,18 @@ class App extends Component {
   render() {
     const { data, loading, error } = this.state;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-            <div>
-              {loading && <p>Loading...</p>}
-              {error && (
-                <div>
-                   <p>Download error</p>
-                   <button onClick={this.fetch}>Try again</button>
-                </div>
-              )}
-              <p>response: {data}</p>
-              {console.log(data)}
-            </div>
-          </header>
+      <div>
+        <div>
+          {loading && <p>Loading...</p>}
+          {error && (
+              <div>
+                <p>Download error</p>
+                <button onClick={this.fetch}>Try again</button>
+              </div>
+          )}
+          <p>response: {data}</p>
+          {console.log(data)}
+        </div>
       </div>
     );
   }
