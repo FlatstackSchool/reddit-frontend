@@ -22,5 +22,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# webstorm files ignore
+# webstorm & VS-Code files ignore
 .idea/*
+/.vscode
