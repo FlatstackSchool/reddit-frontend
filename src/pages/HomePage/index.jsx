@@ -4,10 +4,9 @@ import { ThemeProvider } from '@material-ui/styles';
 import MainTemplate from '../../templates/MainTemplate';
 
 const theme = createMuiTheme();
-
 const HomePage = () => (
   <ThemeProvider theme={theme}>
-    <MainTemplate />
+    <MainTemplate title="Hot">Очередной бессмысленный текст</MainTemplate>
   </ThemeProvider>
 );
 

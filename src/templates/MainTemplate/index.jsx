@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,7 +14,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import SignIcon from '@material-ui/icons/AccountBox';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
 
 const drawerWidth = 240;
 
@@ -74,10 +78,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MainTemplate = () => {
+const MainTemplate = props => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const { title, children } = props;
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -106,7 +111,7 @@ const MainTemplate = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" noWrap>
-            Hot
+            {title}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -131,12 +136,15 @@ const MainTemplate = () => {
         <Divider />
         <List>
           <ListItem button>
+            <ListItemIcon>
+              <WhatshotIcon />
+            </ListItemIcon>
             <ListItemText primary="Hot" />
           </ListItem>
-        </List>
-        <Divider />
-        <List>
           <ListItem button>
+            <ListItemIcon>
+              <SignIcon />
+            </ListItemIcon>
             <ListItemText primary="Sign In" />
           </ListItem>
         </List>
@@ -147,9 +155,19 @@ const MainTemplate = () => {
         })}
       >
         <div className={classes.drawerHeader} />
+        {children}
       </main>
     </div>
   );
+};
+MainTemplate.defaultProps = {
+  title: 'string',
+  children: '',
+};
+
+MainTemplate.propTypes = {
+  title: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default MainTemplate;
