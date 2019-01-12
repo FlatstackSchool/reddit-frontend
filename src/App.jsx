@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage';
 const App = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/home" component={HomePage} />
+      <Route path="/" component={HomePage} />
     </Switch>
   </BrowserRouter>
 );
