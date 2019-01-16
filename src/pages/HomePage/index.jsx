@@ -3,6 +3,7 @@ import axios from 'axios';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import MainTemplate from '../../templates/MainTemplate';
+import NewsCard from '../../organizm/news-card/NewsCard';
 
 const theme = createMuiTheme();
 class HomePage extends React.Component {
@@ -59,11 +60,14 @@ class HomePage extends React.Component {
                 </div>
               )}
               {console.log(responseData)}
-              <p>author: {responseData.author}</p>
-              <p>date: {responseData.created_utc}</p>
-              <p>title: {responseData.title}</p>
               {/*<p>date: {responseData.preview.images.source.url}</p>*/}
-              <p>comments: {responseData.num_comments}</p>
+              <NewsCard
+                avatarImg="https://sun9-29.userapi.com/c845121/v845121770/17f149/6TqH6c5o6nc.jpg?ava=1"
+                userName={responseData.author}
+                pubDate={responseData.created_utc}
+                title={responseData.title}
+                img="https://tproger.ru/wp-content/uploads/2017/08/coding-mini-js.png"
+                commentsCount={responseData.num_comments}/>
             </div>
           </div>
         </MainTemplate>
