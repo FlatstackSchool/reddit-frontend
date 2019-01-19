@@ -5,6 +5,8 @@ import { ThemeProvider } from '@material-ui/styles';
 import MainTemplate from '../../templates/MainTemplate';
 import NewsCard from '../../organizm/news-card/NewsCard';
 import TimeConverter from '../../molecules/TimeConverter/TimeConverter';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 const theme = createMuiTheme();
 class HomePage extends React.Component {
@@ -12,7 +14,6 @@ class HomePage extends React.Component {
     loading: false,
     error: false,
     responseData: [],
-    page: 1,
   };
 
   componentDidMount() {
@@ -62,8 +63,9 @@ class HomePage extends React.Component {
           imgUrl = "https://tproger.ru/wp-content/uploads/2017/08/coding-mini-js.png";
         }
         return (
-          <li
+          <ListItem
             key={index}
+            alignItems="flex-start"
           >
             <NewsCard
               avatarImg="https://sun9-29.userapi.com/c845121/v845121770/17f149/6TqH6c5o6nc.jpg?ava=1"
@@ -72,7 +74,7 @@ class HomePage extends React.Component {
               img={imgUrl}
               title={responseData[item].data.title}
               commentsCount={(responseData[item].data.num_comments).toString()}/>
-          </li>
+          </ListItem>
         )
       });
     }
@@ -89,9 +91,9 @@ class HomePage extends React.Component {
                   <button onClick={this.fetch}>Try again</button>
                 </div>
               )}
-               <ul>
+               <List>
                  {renderNewsCards}
-               </ul>
+               </List>
             </div>
           </div>
         </MainTemplate>
