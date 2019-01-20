@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign */
+/* eslint-disable no-param-reassign,max-len */
 import React from 'react';
 import axios from 'axios';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -53,9 +53,7 @@ class HomePage extends React.Component {
     const state = process.env.REACT_APP_STATE;
     const redirectUri = process.env.REACT_APP_REDIRECT_URI;
     const baseUrl = process.env.REACT_APP_BASEURL;
-    const url = `${baseUrl}authorize?client_id=${clientId}
-    &response_type=code&state=${state}&redirect_uri=${redirectUri}
-    &duration=temporary&scope=identity`;
+    const url = `${baseUrl}authorize.compact?client_id=${clientId}&response_type=code&state=${state}&redirect_uri=${redirectUri}&duration=temporary&scope=identity`;
     return window.open(
       url,
       'oauth',
