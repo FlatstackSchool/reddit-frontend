@@ -49,10 +49,10 @@ class CommentPage extends React.Component {
   };
 
   render(){
-    const{ 
-      commentData, loading, error 
+    const{
+      commentData, loading, error
     } = this.state;
-    
+
     if(commentData) {
       let imgUrl = '';
       let flag = commentData.preview;
@@ -64,9 +64,15 @@ class CommentPage extends React.Component {
       }
       return(
         <ThemeProvider theme={theme}>
-          <MainTemplate title="Hot">
-            <div>
-              <div>
+          <MainTemplate title="">
+            {loading && <p>Loading...</p>}
+              {error && (
+                <div>
+                  <p>Download error</p>
+                  <button onClick={this.fetch}>Try again</button>
+                </div>
+              )}
+              {!loading &&
                 <NewsCard
                   avatarImg="https://sun9-29.userapi.com/c845121/v845121770/17f149/6TqH6c5o6nc.jpg?ava=1"
                   userName={commentData.author}
@@ -75,31 +81,11 @@ class CommentPage extends React.Component {
                   title={commentData.title}
                   commentsCount={String(commentData.num_comments)}
                 />
-              </div>
-            </div>
+              }
           </MainTemplate>
         </ThemeProvider>
       );
     }
-    return (
-      <div>
-        <ThemeProvider theme={theme}>
-          <MainTemplate title="Hot">
-            <div>
-              <div>
-                {loading && <p>Loading...</p>}
-                {error && (
-                  <div>
-                    <p>Download error</p>
-                    <button onClick={this.fetch}>Try again</button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </MainTemplate>
-        </ThemeProvider>
-      </div>
-    );
   }
 }
 

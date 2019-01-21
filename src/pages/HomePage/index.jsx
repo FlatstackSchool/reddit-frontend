@@ -56,7 +56,7 @@ class HomePage extends React.Component {
         paddingInlineStart: 0,
       },
       listMB: {marginBottom: '1em'},
-    }
+    };
 
     if(responseData) {
       renderNewsCards = Object.keys(responseData).map((item, index) => {
@@ -93,18 +93,16 @@ class HomePage extends React.Component {
       <ThemeProvider theme={theme}>
         <MainTemplate title="Hot">
           <div>
-            <div>
-              {loading && <p>Loading...</p>}
+            {loading && <p>Loading...</p>}
               {error && (
                 <div>
                   <p>Download error</p>
                   <button onClick={this.fetch}>Try again</button>
                 </div>
               )}
-               <ul style={styles.itemStyles}>
-                 {renderNewsCards}
-               </ul>
-            </div>
+            <ul style={styles.itemStyles}>
+              {renderNewsCards}
+            </ul>
           </div>
         </MainTemplate>
       </ThemeProvider>
