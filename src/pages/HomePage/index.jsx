@@ -50,6 +50,13 @@ class HomePage extends React.Component {
       responseData, loading, error
     } = this.state;
     let renderNewsCards;
+    const styles =  {
+      itemStyles: {
+        listStyleType: 'none',
+        paddingInlineStart: 0,
+      },
+      listMB: {marginBottom: '1em'},
+    }
 
     if(responseData) {
       renderNewsCards = Object.keys(responseData).map((item, index) => {
@@ -64,6 +71,7 @@ class HomePage extends React.Component {
         return (
           <li
             key={index}
+            style={styles.listMB}
           >
             <Link
               to={`${'/comments/'}${responseData[item].data.id}`}
@@ -93,7 +101,7 @@ class HomePage extends React.Component {
                   <button onClick={this.fetch}>Try again</button>
                 </div>
               )}
-               <ul>
+               <ul style={styles.itemStyles}>
                  {renderNewsCards}
                </ul>
             </div>
