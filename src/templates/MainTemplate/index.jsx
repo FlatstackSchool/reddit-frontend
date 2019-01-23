@@ -82,7 +82,7 @@ const MainTemplate = props => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const { title, children } = props;
+  const { title, children, onclick } = props;
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -141,7 +141,7 @@ const MainTemplate = props => {
             </ListItemIcon>
             <ListItemText primary="Hot" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={onclick}>
             <ListItemIcon>
               <SignIcon />
             </ListItemIcon>
@@ -163,11 +163,13 @@ const MainTemplate = props => {
 MainTemplate.defaultProps = {
   title: 'string',
   children: '',
+  onclick: undefined,
 };
 
 MainTemplate.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node,
+  onclick: PropTypes.func,
 };
 
 export default MainTemplate;
