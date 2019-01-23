@@ -49,7 +49,6 @@ class HomePage extends React.Component {
     const left = window.innerWidth / 2 - width / 2;
     const top = window.innerHeight / 2 - height / 2;
     const clientId = process.env.REACT_APP_CLIENT_ID;
-    // генерировать новый state при каждой аутентификации
     const state = process.env.REACT_APP_STATE;
     const redirectUri = process.env.REACT_APP_REDIRECT_URI;
     const baseUrl = process.env.REACT_APP_BASEURL;
