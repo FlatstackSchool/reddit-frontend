@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign,max-len */
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -82,14 +83,14 @@ class HomePage extends React.Component {
                 pubDate={TimeConverter(responseData[item].data.created_utc)}
                 img={imgUrl}
                 title={responseData[item].data.title}
-                commentsCount={(responseData[item].data.num_comments).toString()}/>
+                commentsCount={(responseData[item].data.num_comments).toString()}
+              />
             </Link>
           </li>
         )
       });
     }
     return (
-      <div>
       <ThemeProvider theme={theme}>
         <MainTemplate title="Hot">
           <div>
@@ -106,7 +107,6 @@ class HomePage extends React.Component {
           </div>
         </MainTemplate>
       </ThemeProvider>
-      </div>
     )
   }
 }

@@ -62,7 +62,7 @@ class CommentPage extends React.Component {
       else {
         imgUrl = "https://tproger.ru/wp-content/uploads/2017/08/coding-mini-js.png";
       }
-      return(
+      return (
         <ThemeProvider theme={theme}>
           <MainTemplate title="">
             {loading && <p>Loading...</p>}
