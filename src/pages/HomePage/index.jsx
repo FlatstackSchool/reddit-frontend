@@ -74,7 +74,7 @@ class HomePage extends React.Component {
       }
       try {
         console.log(window.location.hostname);
-        if (window.location.hostname === 'localhost') {
+        if (window.location.pathname.indexOf('callback') >= 0) {
           window.opener.location.href = window.location.href;
           window.close();
         }
