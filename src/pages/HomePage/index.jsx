@@ -60,7 +60,7 @@ class HomePage extends React.Component {
     );
   };
 
-  getRequest = () => {
+  openAndCheckWindow = () => {
     const window = this.openWindow();
     this.checkAuthWindow(window);
   };
@@ -69,10 +69,8 @@ class HomePage extends React.Component {
     const check = setInterval(() => {
       if (!window || window.closed || window.closed === undefined) {
         clearInterval(check);
-        console.log('window closed by user');
       }
       try {
-        console.log(window.location.hostname);
         if (window.location.pathname.indexOf('callback') >= 0) {
           window.opener.location.href = window.location.href;
           window.close();
@@ -87,7 +85,7 @@ class HomePage extends React.Component {
     const { data, loading, error } = this.state;
     return (
       <ThemeProvider theme={theme}>
-        <MainTemplate title="Hot" onclick={this.getRequest}>
+        <MainTemplate title="Hot" onclick={this.openAndCheckWindow}>
           <div>
             <div>
               {loading && <p>Loading...</p>}
