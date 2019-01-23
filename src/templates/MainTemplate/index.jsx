@@ -19,7 +19,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SignIcon from '@material-ui/icons/AccountBox';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import { Link } from 'react-router-dom';
-
+  
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
