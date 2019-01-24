@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign,max-len */
+/* eslint-disable no-param-reassign,max-len,react/no-unused-state,react/no-array-index-key */
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -32,7 +32,7 @@ class HomePage extends React.Component {
           // apikey: process.env.file_name,
         },
       })
-      .then((response) => {
+      .then(response => {
         this.setState(() => ({
           loading: false,
           responseData: response.data.data.children,
@@ -85,47 +85,43 @@ class HomePage extends React.Component {
   };
 
   render() {
-    const {
-      responseData, loading, error
-    } = this.state;
+    const { responseData, loading, error } = this.state;
     let renderNewsCards;
-    const styles =  {
+    const styles = {
       itemStyles: {
         listStyleType: 'none',
         paddingInlineStart: 0,
       },
-      listMB: {marginBottom: '1em'},
+      listMB: { marginBottom: '1em' },
     };
 
-    if(responseData) {
+    if (responseData) {
       renderNewsCards = Object.keys(responseData).map((item, index) => {
         let imgUrl = '';
-        let flag = responseData[item].data.preview;
-        if(flag) {
-          imgUrl = responseData[item].data.preview.images[0].source.url.replace(new RegExp('&amp;', 'g'), '&');
-        }
-        else {
-          imgUrl = "https://tproger.ru/wp-content/uploads/2017/08/coding-mini-js.png";
+        const flag = responseData[item].data.preview;
+        if (flag) {
+          imgUrl = responseData[item].data.preview.images[0].source.url.replace(
+            new RegExp('&amp;', 'g'),
+            '&',
+          );
+        } else {
+          imgUrl =
+            'https://tproger.ru/wp-content/uploads/2017/08/coding-mini-js.png';
         }
         return (
-          <li
-            key={index}
-            style={styles.listMB}
-          >
-            <Link
-              to={`${'/comments/'}${responseData[item].data.id}`}
-            >
+          <li key={index} style={styles.listMB}>
+            <Link to={`${'/comments/'}${responseData[item].data.id}`}>
               <NewsCard
                 avatarImg="https://sun9-29.userapi.com/c845121/v845121770/17f149/6TqH6c5o6nc.jpg?ava=1"
                 userName={responseData[item].data.author}
                 pubDate={TimeConverter(responseData[item].data.created_utc)}
                 img={imgUrl}
                 title={responseData[item].data.title}
-                commentsCount={(responseData[item].data.num_comments).toString()}
+                commentsCount={responseData[item].data.num_comments.toString()}
               />
             </Link>
           </li>
-        )
+        );
       });
     }
     return (
@@ -133,19 +129,19 @@ class HomePage extends React.Component {
         <MainTemplate title="Hot" onclick={this.openAndCheckWindow}>
           <div>
             {loading && <p>Loading...</p>}
-              {error && (
-                <div>
-                  <p>Download error</p>
-                  <button onClick={this.fetch}>Try again</button>
-                </div>
-              )}
-            <ul style={styles.itemStyles}>
-              {renderNewsCards}
-            </ul>
+            {error && (
+              <div>
+                <p>Download error</p>
+                <button type="button" onClick={this.fetch}>
+                  Try again
+                </button>
+              </div>
+            )}
+            <ul style={styles.itemStyles}>{renderNewsCards}</ul>
           </div>
         </MainTemplate>
       </ThemeProvider>
-    )
+    );
   }
 }
 
