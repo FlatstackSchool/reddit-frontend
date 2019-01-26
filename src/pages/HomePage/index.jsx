@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign,max-len,react/no-unused-state,react/no-array-index-key */
+/* eslint-disable no-param-reassign,max-len,react/no-unused-state,react/no-array-index-key,prettier/prettier */
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -46,44 +46,6 @@ class HomePage extends React.Component {
       });
   };
 
-  openWindow = () => {
-    const width = 600;
-    const height = 600;
-    const left = window.innerWidth / 2 - width / 2;
-    const top = window.innerHeight / 2 - height / 2;
-    const clientId = process.env.REACT_APP_CLIENT_ID;
-    const state = process.env.REACT_APP_STATE;
-    const redirectUri = process.env.REACT_APP_REDIRECT_URI;
-    const baseUrl = process.env.REACT_APP_BASEURL;
-    const url = `${baseUrl}authorize.compact?client_id=${clientId}&response_type=code&state=${state}&redirect_uri=${redirectUri}&duration=temporary&scope=identity`;
-    return window.open(
-      url,
-      'oauth',
-      `width=${width}, height=${height}, left=${left}, top=${top}`,
-    );
-  };
-
-  openAndCheckWindow = () => {
-    const window = this.openWindow();
-    this.checkAuthWindow(window);
-  };
-
-  checkAuthWindow = window => {
-    const check = setInterval(() => {
-      if (!window || window.closed || window.closed === undefined) {
-        clearInterval(check);
-      }
-      try {
-        if (window.location.pathname.indexOf('callback') >= 0) {
-          window.opener.location.href = window.location.href;
-          window.close();
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }, 500);
-  };
-
   render() {
     const { responseData, loading, error } = this.state;
     let renderNewsCards;
@@ -126,7 +88,7 @@ class HomePage extends React.Component {
     }
     return (
       <ThemeProvider theme={theme}>
-        <MainTemplate title="Hot" onclick={this.openAndCheckWindow}>
+        <MainTemplate title="Hot">
           <div>
             {loading && <p>Loading...</p>}
             {error && (
