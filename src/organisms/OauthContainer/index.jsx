@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { openOauthWindow } from '../../actions/openOauthWindow';
-import { closeOauthWindow } from '../../actions/closeOauthWindow';
-import { checkOauthWindow } from '../../actions/checkOauthWindow';
 import SignInButton from '../../atoms/SingInButton';
 
 class OauthWindow extends Component {
@@ -28,13 +26,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   openOauthWindow: () => {
     dispatch(openOauthWindow());
-  },
-
-  closeOauthWindow: () => {
-    dispatch(closeOauthWindow());
-  },
-  checkOauthWindow: () => {
-    dispatch(checkOauthWindow());
   },
 });
 

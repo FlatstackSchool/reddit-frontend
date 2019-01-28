@@ -12,7 +12,7 @@ export const checkOauthWindow = window => dispatch => {
       console.log(e);
     }
   }, 2000);
-  return {
+  dispatch({
     type: CHECK_WINDOW,
-  };
+  });
 };

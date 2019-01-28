@@ -18,20 +18,9 @@ export const openOauthWindow = () => dispatch => {
     'oauth',
     `width=${width}, height=${height}, left=${left}, top=${top}`,
   );
-  /* setInterval(() => {
-    try {
-      if (ref.location.pathname.indexOf('callback') >= 0) {
-        /!*ref.opener.location.href = ref.location.href;
-        ref.close();*!/
-        dispatch(closeOauthWindow(ref));
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }, 2000); */
-  dispatch(checkOauthWindow(ref));
-  return {
+  dispatch({
     type: OPEN_WINDOW,
     payload: { isOpen: true },
-  };
+  });
+  dispatch(checkOauthWindow(ref));
 };
