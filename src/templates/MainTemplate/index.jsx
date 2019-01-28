@@ -18,7 +18,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import { Link } from 'react-router-dom';
-import OauthWindow from '../../organisms/OauthWindow';
+import OauthContainer from '../../organisms/OauthContainer';
 
 const drawerWidth = 240;
 
@@ -144,7 +144,7 @@ const MainTemplate = props => {
               <ListItemText primary="Hot" />
             </ListItem>
           </Link>
-          <OauthWindow />
+          <OauthContainer />
         </List>
       </Drawer>
       <main
