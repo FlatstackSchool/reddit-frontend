@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { openOauthWindow } from '../../actions/openOauthWindow';
 import SignInButton from '../../atoms/SingInButton';
 
-class OauthWindow extends Component {
+class OauthContainer extends Component {
   handleClick = () => {
     this.props.openOauthWindow();
   };
@@ -29,14 +29,14 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-OauthWindow.propTypes = {
+OauthContainer.propTypes = {
   openOauthWindow: PropTypes.func,
 };
 
-OauthWindow.defaultProps = {
+OauthContainer.defaultProps = {
   openOauthWindow: undefined,
 };
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(OauthWindow);
+)(OauthContainer);
