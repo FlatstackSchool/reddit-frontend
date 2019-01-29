@@ -1,17 +1,13 @@
-/* eslint-disable react/prop-types,react/destructuring-assignment */
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { openOauthWindow } from '../../actions/openOauthWindow';
-import { generateState } from '../../actions/generateState';
+import { openOauthWindow } from '../../store/actions/openOauthWindow';
 import SignInButton from '../../atoms/SingInButton';
 
 class OauthContainer extends Component {
   handleClick = () => {
-    this.props.generateState();
-    const state = this.props.randomStringProps;
-    this.props.openOauthWindow(state);
-    console.log(this.props);
+    this.props.openOauthWindow();
   };
 
   render() {
@@ -24,16 +20,12 @@ class OauthContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  openProps: state.isOpen,
-  randomStringProps: state.randomString,
+  isOpen: state.isOpen,
 });
 
 const mapDispatchToProps = dispatch => ({
   openOauthWindow: () => {
     dispatch(openOauthWindow());
-  },
-  generateState: () => {
-    dispatch(generateState());
   },
 });
 

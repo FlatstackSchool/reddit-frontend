@@ -1,9 +1,4 @@
-import {
-  OPEN_WINDOW,
-  CLOSE_WINDOW,
-  CHECK_WINDOW,
-  GENERATE_STATE,
-} from '../actions/types';
+import { OPEN_WINDOW, CLOSE_WINDOW, CHECK_WINDOW } from '../actions/types';
 
 const initialState = {
   isOpen: false,
@@ -16,6 +11,7 @@ export default function oauthWindow(state = initialState, action) {
       return {
         ...state,
         isOpen: action.payload.isOpen,
+        randomString: action.payload.randomState,
       };
     case CLOSE_WINDOW:
       return {
@@ -25,11 +21,6 @@ export default function oauthWindow(state = initialState, action) {
     case CHECK_WINDOW:
       return {
         ...state,
-      };
-    case GENERATE_STATE:
-      return {
-        ...state,
-        randomString: action.generatedString,
       };
     default:
       return state;
