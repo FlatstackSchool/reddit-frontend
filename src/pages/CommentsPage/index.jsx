@@ -3,7 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
-import NewsCard from '../../organizm/news-card/NewsCard';
+import NewsCard from '../../organisms/NewsCard/NewsCard';
 import MainTemplate from '../../templates/MainTemplate/index';
 import TimeConverter from '../../molecules/TimeConverter/TimeConverter';
 

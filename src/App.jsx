@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './store';
-import HomePage from './pages/HomePage/index';
+import HomePage from './pages/HomePage';
 import CommentsPage from './pages/CommentsPage/index';
+
+import store from './store/index';
 
 const App = () => (
   <Provider store={store}>
