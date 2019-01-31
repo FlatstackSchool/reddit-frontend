@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import HomePage from './pages/HomePage';
 import CommentsPage from './pages/CommentsPage/index';
-
 import store from './store/index';
 
 const App = () => (

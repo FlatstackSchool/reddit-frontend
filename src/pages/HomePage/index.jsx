@@ -8,9 +8,7 @@ import { createMuiTheme } from '@material-ui/core';
 import receivePosts from '../../store/actions/receivePosts';
 import NewsCard from '../../organisms/NewsCard/NewsCard';
 import TimeConverter from '../../molecules/TimeConverter/TimeConverter';
-
 import MainTemplate from '../../templates/MainTemplate';
-
 
 const theme = createMuiTheme();
 
@@ -101,6 +99,10 @@ HomePage.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   data: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  error: PropTypes.bool.isRequired,
+  error: PropTypes.bool,
+};
+
+HomePage.defaultProps = {
+  error: false,
 };
 

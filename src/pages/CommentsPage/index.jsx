@@ -13,7 +13,7 @@ class CommentPage extends React.Component {
   state = {
     loading: false,
     error: false,
-    commentData: {},
+    data: [],
   };
 
   componentDidMount() {
@@ -22,7 +22,6 @@ class CommentPage extends React.Component {
 
   fetch = () => {
     this.setState({
-      data: [],
       loading: true,
       error: false,
     });
@@ -30,15 +29,11 @@ class CommentPage extends React.Component {
     const { match } = this.props;
 
     axios
-      .get(`https://www.reddit.com/hot.json`, {
-        params: {
-          // apikey: process.env.file_name,
-        },
-      })
+      .get(`https://www.reddit.com/hot.json`)
       .then(response => {
         this.setState(() => ({
           loading: false,
-          commentData: response.data.data.children.filter(
+          data: response.data.data.children.filter(
             item => item.data.id === String(match.params.id),
           )[0].data,
         }));
@@ -52,13 +47,13 @@ class CommentPage extends React.Component {
   };
 
   render() {
-    const { commentData, loading, error } = this.state;
+    const { data, loading, error } = this.state;
 
-    if (commentData) {
+    if (data) {
       let imgUrl = '';
-      const flag = commentData.preview;
+      const flag = data.preview;
       if (flag) {
-        imgUrl = commentData.preview.images[0].source.url.replace(
+        imgUrl = data.preview.images[0].source.url.replace(
           new RegExp('&amp;', 'g'),
           '&',
         );
@@ -81,11 +76,11 @@ class CommentPage extends React.Component {
             {!loading && (
               <NewsCard
                 avatarImg="https://sun9-29.userapi.com/c845121/v845121770/17f149/6TqH6c5o6nc.jpg?ava=1"
-                userName={commentData.author}
-                pubDate={TimeConverter(commentData.created_utc)}
+                userName={data.author}
+                pubDate={TimeConverter(data.created_utc)}
                 img={imgUrl}
-                title={commentData.title}
-                commentsCount={String(commentData.num_comments)}
+                title={data.title}
+                commentsCount={String(data.num_comments)}
               />
             )}
           </MainTemplate>
