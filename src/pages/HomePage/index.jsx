@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
 import receivePosts from '../../store/actions/receivePosts';
-import NewsCard from '../../organisms/NewsCard/NewsCard';
-import TimeConverter from '../../molecules/TimeConverter/TimeConverter';
+import NewsCard from '../../organisms/NewsCard';
+import Index from '../../molecules/TimeConverter';
 import MainTemplate from '../../templates/MainTemplate';
 
 const theme = createMuiTheme();
@@ -46,7 +46,7 @@ class HomePage extends React.Component {
               <NewsCard
                 avatarImg="https://sun9-29.userapi.com/c845121/v845121770/17f149/6TqH6c5o6nc.jpg?ava=1"
                 userName={data[item].data.author}
-                pubDate={TimeConverter(data[item].data.created_utc)}
+                pubDate={Index(data[item].data.created_utc)}
                 img={imgUrl}
                 title={data[item].data.title}
                 commentsCount={data[item].data.num_comments.toString()}

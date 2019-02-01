@@ -25,7 +25,7 @@ const styles = {
   },
 };
 
-function NewsCard(props) {
+function Index(props) {
   const {
     classes,
     avatarImg,
@@ -73,7 +73,7 @@ function NewsCard(props) {
     </Card>
   );
 }
-NewsCard.defaultProps = {
+Index.defaultProps = {
   avatarImg: '',
   userName: '',
   pubDate: '',
@@ -82,7 +82,7 @@ NewsCard.defaultProps = {
   commentsCount: '',
 };
 
-NewsCard.propTypes = {
+Index.propTypes = {
   // eslint-disable-next-line
   classes: PropTypes.object.isRequired,
   avatarImg: PropTypes.string,
@@ -93,4 +93,4 @@ NewsCard.propTypes = {
   commentsCount: PropTypes.string,
 };
 
-export default withStyles(styles)(NewsCard);
+export default withStyles(styles)(Index);

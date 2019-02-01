@@ -3,9 +3,9 @@ import React from 'react';
 import axios from 'axios';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
-import NewsCard from '../../organisms/NewsCard/NewsCard';
-import MainTemplate from '../../templates/MainTemplate/index';
-import TimeConverter from '../../molecules/TimeConverter/TimeConverter';
+import NewsCard from '../../organisms/NewsCard';
+import MainTemplate from '../../templates/MainTemplate';
+import Index from '../../molecules/TimeConverter';
 
 const theme = createMuiTheme();
 
@@ -77,7 +77,7 @@ class CommentPage extends React.Component {
               <NewsCard
                 avatarImg="https://sun9-29.userapi.com/c845121/v845121770/17f149/6TqH6c5o6nc.jpg?ava=1"
                 userName={data.author}
-                pubDate={TimeConverter(data.created_utc)}
+                pubDate={Index(data.created_utc)}
                 img={imgUrl}
                 title={data.title}
                 commentsCount={String(data.num_comments)}
