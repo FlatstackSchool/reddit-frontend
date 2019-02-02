@@ -5,7 +5,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
 import NewsCard from '../../organisms/NewsCard';
 import MainTemplate from '../../templates/MainTemplate';
-import Index from '../../molecules/TimeConverter';
+import TimeConverter from '../../molecules/TimeConverter';
 import CommentBlock from '../../organisms/comment-block';
 
 const theme = createMuiTheme();
@@ -50,13 +50,10 @@ class CommentPage extends React.Component {
   render() {
     const { data, dataNews, loading, error } = this.state;
     const renderCommentsList = Object.keys(dataNews).map(item => (
-      <li
-        key={dataNews[item].data.id}
-        style={{ listStyleType: 'none', marginBottom: '1em' }}
-      >
+      <li key={dataNews[item].data.id} style={{ marginBottom: '1em' }}>
         <CommentBlock
           author={dataNews[item].data.author}
-          pubDate={Index(dataNews[item].data.created_utc)}
+          pubDate={TimeConverter(dataNews[item].data.created_utc)}
           body={dataNews[item].data.body}
         />
       </li>
@@ -91,12 +88,14 @@ class CommentPage extends React.Component {
                 <NewsCard
                   avatarImg="https://sun9-29.userapi.com/c845121/v845121770/17f149/6TqH6c5o6nc.jpg?ava=1"
                   userName={data.author}
-                  pubDate={Index(data.created_utc)}
+                  pubDate={TimeConverter(data.created_utc)}
                   img={imgUrl}
                   title={data.title}
                   commentsCount={String(data.num_comments)}
                 />
-                {renderCommentsList}
+                <ul style={{ listStyleType: 'none', paddingInlineStart: 0 }}>
+                  {renderCommentsList}
+                </ul>
               </Fragment>
             )}
           </MainTemplate>

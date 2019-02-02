@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const Index = timestamp => {
+const TimeConverter = timestamp => {
   const a = new Date(timestamp * 1000);
   const months = [
     'Jan',
@@ -21,8 +21,8 @@ const Index = timestamp => {
   return newDate;
 };
 
-Index.propTypes = {
+TimeConverter.propTypes = {
   timestamp: PropTypes.number.isRequired,
 };
 
-export default Index;
+export default TimeConverter;

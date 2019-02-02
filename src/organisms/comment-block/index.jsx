@@ -8,10 +8,12 @@ import Divider from '@material-ui/core/Divider';
 
 const styles = {
   card: {
-    minWidth: 275,
+    maxWidth: '100%',
+    margin: '0 auto',
   },
   title: {
-    fontSize: 14,
+    fontSize: 16,
+    fontWidth: 700,
   },
   pos: {
     marginBottom: 12,
@@ -21,13 +23,13 @@ const styles = {
 const CommentBlock = ({ classes, author, pubDate, body }) => (
   <Card className={classes.card}>
     <CardContent>
-      <Typography className={classes.title} color="textSecondary" gutterBottom>
+      <Typography className={classes.title} gutterBottom>
         {author}
       </Typography>
       <Typography className={classes.pos} color="textSecondary">
         {pubDate}
       </Typography>
-      <Divider variant="inset" />
+      <Divider />
       <Typography component="p">{body}</Typography>
     </CardContent>
   </Card>
