@@ -1,54 +1,25 @@
-/* eslint-disable max-len,react/no-unused-state,react/prop-types,consistent-return */
+/* eslint-disable max-len,react/prop-types,consistent-return, react/destructuring-assignment, prefer-destructuring */
 import React, { Fragment } from 'react';
-import axios from 'axios';
 import { ThemeProvider } from '@material-ui/styles';
+import PropTypes from 'prop-types';
 import { createMuiTheme } from '@material-ui/core';
+import { connect } from 'react-redux';
 import NewsCard from '../../organisms/NewsCard';
 import MainTemplate from '../../templates/MainTemplate';
 import TimeConverter from '../../molecules/TimeConverter';
-import CommentBlock from '../../organisms/comment-block';
+import CommentBlock from '../../organisms/CommentBlock';
+import receiveComments from '../../store/actions/receiveComments';
 
 const theme = createMuiTheme();
 
-class CommentPage extends React.Component {
-  state = {
-    loading: false,
-    error: false,
-    data: [],
-    dataNews: [],
-  };
-
+class CommentsPage extends React.Component {
   componentDidMount() {
-    this.fetch();
+    const id = this.props.match.params.id;
+    this.props.receiveComments(id);
   }
 
-  fetch = () => {
-    this.setState({
-      loading: true,
-      error: false,
-    });
-
-    const { match } = this.props;
-
-    axios
-      .get(`https://www.reddit.com/comments/${match.params.id}.json`)
-      .then(response => {
-        this.setState(() => ({
-          loading: false,
-          data: response.data[0].data.children[0].data,
-          dataNews: response.data[1].data.children,
-        }));
-      })
-      .catch(() => {
-        this.setState({
-          loading: false,
-          error: true,
-        });
-      });
-  };
-
   render() {
-    const { data, dataNews, loading, error } = this.state;
+    const { data, dataNews, isLoading, error } = this.props;
     const renderCommentsList = Object.keys(dataNews).map(item => (
       <li key={dataNews[item].data.id} style={{ marginBottom: '1em' }}>
         <CommentBlock
@@ -74,16 +45,19 @@ class CommentPage extends React.Component {
       return (
         <ThemeProvider theme={theme}>
           <MainTemplate title="">
-            {loading && <p>Loading...</p>}
+            {isLoading && <p>Loading...</p>}
             {error && (
               <div>
                 <p>Download error</p>
-                <button type="button" onClick={this.fetch}>
+                <button
+                  type="button"
+                  onClick={() => this.props.receiveComments()}
+                >
                   Try again
                 </button>
               </div>
             )}
-            {!loading && (
+            {!isLoading && (
               <Fragment>
                 <NewsCard
                   avatarImg="https://sun9-29.userapi.com/c845121/v845121770/17f149/6TqH6c5o6nc.jpg?ava=1"
@@ -105,4 +79,32 @@ class CommentPage extends React.Component {
   }
 }
 
-export default CommentPage;
+const mapStateToProps = state => ({
+  data: state.comments.data,
+  dataNews: state.comments.dataNews,
+  isLoading: state.comments.isLoading,
+  error: state.comments.error,
+});
+
+const mapDispatchToProps = {
+  receiveComments: id => receiveComments(id),
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CommentsPage);
+
+CommentsPage.propTypes = {
+  receiveComments: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  data: PropTypes.array.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  dataNews: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.bool,
+};
+
+CommentsPage.defaultProps = {
+  error: false,
+};
