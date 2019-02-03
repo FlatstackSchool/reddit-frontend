@@ -67,7 +67,14 @@ class CommentsPage extends React.Component {
                   title={data.title}
                   commentsCount={String(data.num_comments)}
                 />
-                <ul style={{ listStyleType: 'none', paddingInlineStart: 0 }}>
+                <ul
+                  style={{
+                    listStyleType: 'none',
+                    paddingInlineStart: 0,
+                    position: 'absolute',
+                    width: '85%',
+                  }}
+                >
                   {renderCommentsList}
                 </ul>
               </Fragment>
