@@ -22,11 +22,13 @@ class CommentsPage extends React.Component {
     const { data, dataNews, isLoading, error } = this.props;
     const renderCommentsList = Object.keys(dataNews).map(item => (
       <li key={dataNews[item].data.id} style={{ marginBottom: '1em' }}>
-        <CommentBlock
-          author={dataNews[item].data.author}
-          pubDate={TimeConverter(dataNews[item].data.created_utc)}
-          body={dataNews[item].data.body}
-        />
+        {dataNews[item].data.author && (
+          <CommentBlock
+            author={dataNews[item].data.author}
+            pubDate={TimeConverter(dataNews[item].data.created_utc)}
+            body={dataNews[item].data.body}
+          />
+        )}
       </li>
     ));
 
