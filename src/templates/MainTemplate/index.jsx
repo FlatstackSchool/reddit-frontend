@@ -16,9 +16,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import SignIcon from '@material-ui/icons/AccountBox';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import { Link } from 'react-router-dom';
+import OauthContainer from '../../organisms/OauthContainer';
 
 const drawerWidth = 240;
 
@@ -83,7 +83,7 @@ const MainTemplate = props => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const { title, children, onclick } = props;
+  const { title, children } = props;
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -144,12 +144,7 @@ const MainTemplate = props => {
               <ListItemText primary="Hot" />
             </ListItem>
           </Link>
-          <ListItem button onClick={onclick}>
-            <ListItemIcon>
-              <SignIcon />
-            </ListItemIcon>
-            <ListItemText primary="Sign In" />
-          </ListItem>
+          <OauthContainer />
         </List>
       </Drawer>
       <main
@@ -166,13 +161,11 @@ const MainTemplate = props => {
 MainTemplate.defaultProps = {
   title: 'string',
   children: '',
-  onclick: undefined,
 };
 
 MainTemplate.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node,
-  onclick: PropTypes.func,
 };
 
 export default MainTemplate;

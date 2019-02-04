@@ -105,4 +105,3 @@ HomePage.propTypes = {
 HomePage.defaultProps = {
   error: false,
 };
-
