@@ -1,64 +1,42 @@
-/* eslint-disable max-len,react/no-unused-state,react/prop-types,consistent-return */
-import React from 'react';
-import axios from 'axios';
+/* eslint-disable max-len,react/prop-types,consistent-return, react/destructuring-assignment, prefer-destructuring */
+import React, { Fragment } from 'react';
 import { ThemeProvider } from '@material-ui/styles';
+import PropTypes from 'prop-types';
 import { createMuiTheme } from '@material-ui/core';
-import NewsCard from '../../organizm/news-card/NewsCard';
-import MainTemplate from '../../templates/MainTemplate/index';
-import TimeConverter from '../../molecules/TimeConverter/TimeConverter';
+import { connect } from 'react-redux';
+import NewsCard from '../../organisms/NewsCard';
+import MainTemplate from '../../templates/MainTemplate';
+import TimeConverter from '../../molecules/TimeConverter';
+import CommentBlock from '../../organisms/CommentBlock';
+import receiveComments from '../../store/actions/receiveComments';
 
 const theme = createMuiTheme();
 
-class CommentPage extends React.Component {
-  state = {
-    loading: false,
-    error: false,
-    commentData: {},
-  };
-
+class CommentsPage extends React.Component {
   componentDidMount() {
-    this.fetch();
+    const id = this.props.match.params.id;
+    this.props.receiveComments(id);
   }
 
-  fetch = () => {
-    this.setState({
-      data: [],
-      loading: true,
-      error: false,
-    });
-
-    const { match } = this.props;
-
-    axios
-      .get(`https://www.reddit.com/hot.json`, {
-        params: {
-          // apikey: process.env.file_name,
-        },
-      })
-      .then(response => {
-        this.setState(() => ({
-          loading: false,
-          commentData: response.data.data.children.filter(
-            item => item.data.id === String(match.params.id),
-          )[0].data,
-        }));
-      })
-      .catch(() => {
-        this.setState({
-          loading: false,
-          error: true,
-        });
-      });
-  };
-
   render() {
-    const { commentData, loading, error } = this.state;
+    const { data, dataNews, isLoading, error } = this.props;
+    const renderCommentsList = Object.keys(dataNews).map(item => (
+      <li key={dataNews[item].data.id} style={{ marginBottom: '1em' }}>
+        {dataNews[item].data.author && (
+          <CommentBlock
+            author={dataNews[item].data.author}
+            pubDate={TimeConverter(dataNews[item].data.created_utc)}
+            body={dataNews[item].data.body}
+          />
+        )}
+      </li>
+    ));
 
-    if (commentData) {
+    if (data) {
       let imgUrl = '';
-      const flag = commentData.preview;
+      const flag = data.preview;
       if (flag) {
-        imgUrl = commentData.preview.images[0].source.url.replace(
+        imgUrl = data.preview.images[0].source.url.replace(
           new RegExp('&amp;', 'g'),
           '&',
         );
@@ -69,24 +47,39 @@ class CommentPage extends React.Component {
       return (
         <ThemeProvider theme={theme}>
           <MainTemplate title="">
-            {loading && <p>Loading...</p>}
+            {isLoading && <p>Loading...</p>}
             {error && (
               <div>
                 <p>Download error</p>
-                <button type="button" onClick={this.fetch}>
+                <button
+                  type="button"
+                  onClick={() => this.props.receiveComments()}
+                >
                   Try again
                 </button>
               </div>
             )}
-            {!loading && (
-              <NewsCard
-                avatarImg="https://sun9-29.userapi.com/c845121/v845121770/17f149/6TqH6c5o6nc.jpg?ava=1"
-                userName={commentData.author}
-                pubDate={TimeConverter(commentData.created_utc)}
-                img={imgUrl}
-                title={commentData.title}
-                commentsCount={String(commentData.num_comments)}
-              />
+            {!isLoading && (
+              <Fragment>
+                <NewsCard
+                  avatarImg="https://sun9-29.userapi.com/c845121/v845121770/17f149/6TqH6c5o6nc.jpg?ava=1"
+                  userName={data.author}
+                  pubDate={TimeConverter(data.created_utc)}
+                  img={imgUrl}
+                  title={data.title}
+                  commentsCount={String(data.num_comments)}
+                />
+                <ul
+                  style={{
+                    listStyleType: 'none',
+                    paddingInlineStart: 0,
+                    position: 'absolute',
+                    width: '85%',
+                  }}
+                >
+                  {renderCommentsList}
+                </ul>
+              </Fragment>
             )}
           </MainTemplate>
         </ThemeProvider>
@@ -95,4 +88,32 @@ class CommentPage extends React.Component {
   }
 }
 
-export default CommentPage;
+const mapStateToProps = state => ({
+  data: state.comments.data,
+  dataNews: state.comments.dataNews,
+  isLoading: state.comments.isLoading,
+  error: state.comments.error,
+});
+
+const mapDispatchToProps = {
+  receiveComments: id => receiveComments(id),
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CommentsPage);
+
+CommentsPage.propTypes = {
+  receiveComments: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  data: PropTypes.array.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  dataNews: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.bool,
+};
+
+CommentsPage.defaultProps = {
+  error: false,
+};
